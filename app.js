@@ -1,13 +1,31 @@
 const express = require('express')
+const cors = require('cors')
+const bodyParser = require('body-parser')
+const logger = require('morgan')
 const fs = require('fs')
 const app = express()
+const avgsRouter = require('./routes/averages')
 
 app.get('/', (req, res) => {
   const output = { value:  'hello world!' }
   res.send(output)
 })
+
+//cors
+app.use(cors())
 //this line is required to parse the request body
 app.use(express.json())
+
+//bodyparcer
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+//morgan
+app.use(logger('dev'));
+
+//avgsRouter
+app.use("/averages", avgsRouter);
+
 /* Create - POST method */
 app.post('/user/add', (req, res) => {
     //get the existing user data
@@ -32,10 +50,13 @@ app.post('/user/add', (req, res) => {
     res.send({success: true, msg: 'User data added successfully'})
 })
 /* Read - GET method */
+
 app.get('/user/list', (req, res) => {
     const users = getUserData()
     res.send(users)
 })
+
+
 /* Update - Patch method */
 app.patch('/user/update/:age', (req, res) => {
     //get the age from url
@@ -85,8 +106,8 @@ const getUserData = () => {
 }
 /* util functions ends */
 //configure the server port
-app.listen(3000, () => {
-  console.log('Server runs on port 3000')
+app.listen(3001, () => {
+  console.log('Server runs on port 3001')
 })
 
    
