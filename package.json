@@ -2,10 +2,15 @@
   "name": "Calorie-Calculator-Api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node app.js",
+    "db:create": "createdb bmi-avg",
+    "db:destroy": "dropdb bmi-avg",
+    "db:init": "psql -f schema.sql bmi-avg",
+    "db:seed": "psql -f seed.sql bmi-avg",
+    "db:reset": "npm run db:destroy; npm run db:create && npm run db:init && npm run db:seed"
   },
   "repository": {
     "type": "git",
@@ -20,9 +25,12 @@
   "homepage": "https://github.com/kv-codes/Calorie-Calculator-Api#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "fs": "0.0.1-security",
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.7",
-    "pg": "^8.5.1"
+    "pg": "^8.5.1",
+    "pg-promise": "^10.9.4"
   }
 }
