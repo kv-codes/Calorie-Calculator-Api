@@ -20,6 +20,8 @@ app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.use(express.static(path.join(__dirname, 'react-client/build')));
+
 //morgan
 app.use(logger('dev'));
 
@@ -93,6 +95,11 @@ app.delete('/user/delete/:age', (req, res) => {
     res.send({success: true, msg: 'Age removed successfully'})
     
 })
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname+'/react-client/build/index.html'));
+  }); 
+
 /* util functions */
 //read the user data from json file
 const saveUserData = (data) => {
@@ -106,7 +113,7 @@ const getUserData = () => {
 }
 /* util functions ends */
 //configure the server port
-app.listen(3001, () => {
+app.listen(process.env.PORT || 3001, () => {
   console.log('Server runs on port 3001')
 })
 
