@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import Result from './Result';
 import BmrResults from './BmrResults';
 
+
 class Form extends Component {
 
     constructor(props){
@@ -33,9 +34,12 @@ class Form extends Component {
     }
 
     componentDidMount() {
-        fetch("http://localhost:3001/averages/list")
+        const API_URL= process.env.REACT_APP_API_URL || 'http://localhost:3001/average/list'
+        fetch(`${API_URL}`)
         .then(response => response.json())
+
         .then( responseJson=> {
+
 
           this.setState({ averages:responseJson.data });
         });

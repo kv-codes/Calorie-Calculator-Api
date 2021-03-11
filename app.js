@@ -7,8 +7,8 @@ const app = express()
 const avgsRouter = require('./routes/averages')
 
 app.get('/', (req, res) => {
-  const output = { value:  'hello world!' }
-  res.send(output)
+
+  res.send('api is running')
 })
 
 //cors
@@ -20,13 +20,13 @@ app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(express.static(path.join(__dirname, 'react-client/build')));
+//app.use(express.static(path.join(__dirname, 'client/build')));
 
 //morgan
 app.use(logger('dev'));
 
 //avgsRouter
-app.use("/averages", avgsRouter);
+app.use("/average", avgsRouter);
 
 /* Create - POST method */
 app.post('/user/add', (req, res) => {
