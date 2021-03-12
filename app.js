@@ -97,7 +97,7 @@ app.delete('/user/delete/:age', (req, res) => {
 })
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname+'/react-client/build/index.html'));
+    res.sendFile(path.join(__dirname+'/client/build/index.html'));
   }); 
 
 /* util functions */
